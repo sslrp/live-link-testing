@@ -43,7 +43,7 @@ function getAccel(){
         if (response == 'granted') {
        // Add a listener to get smartphone orientation 
            // in the alpha-beta-gamma axes (units in degrees)
-            window.addEventListener('deviceorientation',deviceMotion);
+            window.addEventListener('devicemotion', handleMotion);
             window.addEventListener('deviceorientation',(event) => {
                 // Expose each orientation angle in a more readable way
                 rotation_degrees = event.alpha; // compass tilt
