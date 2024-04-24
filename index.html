@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Accelerometer Demo</title>
+    <title>Dymatic Live Link</title>
 
     <style>
     .indicatorDot{
@@ -26,14 +26,27 @@ var vx = 0.0; // Velocity x and y
 var vy = 0.0;
 var updateRate = 1/60; // Sensor refresh rate
 
+function handleMotion(event) {
+  var accelerationX = event.accelerationIncludingGravity.x; // Acceleration along the x-axis
+  var accelerationY = event.accelerationIncludingGravity.y; // Acceleration along the y-axis
+  var accelerationZ = event.accelerationIncludingGravity.z; // Acceleration along the z-axis
+  var rotationRateAlpha = event.rotationRate.alpha; // Rate of rotation around the z-axis
+  var rotationRateBeta = event.rotationRate.beta; // Rate of rotation around the x-axis
+  var rotationRateGamma = event.rotationRate.gamma; // Rate of rotation around the y-axis
+  
+  document.getElementById("accelerationText").innerText = "<" + accelerationX + ", " + accelerationY + ", " + accelerationZ + ">";
+  document.getElementById("rotationText").innerText = "<" + rotationRateBeta + ", " + rotationRateGamma + ", " + rotationRateAlpha + ">";
+}
+
 function getAccel(){
     DeviceMotionEvent.requestPermission().then(response => {
         if (response == 'granted') {
        // Add a listener to get smartphone orientation 
            // in the alpha-beta-gamma axes (units in degrees)
+            window.addEventListener('deviceorientation',deviceMotion);
             window.addEventListener('deviceorientation',(event) => {
                 // Expose each orientation angle in a more readable way
-                rotation_degrees = event.alpha;
+                rotation_degrees = event.alpha; // compass tilt
                 frontToBack_degrees = event.beta;
                 leftToRight_degrees = event.gamma;
                 
